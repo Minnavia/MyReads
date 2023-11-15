@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add format</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="row d-flex py-4 justify-content-center">
+		<form class="col-md-4 col-sm-8" action="#" th:action="@{/saveformat}" th:object="${format}" method="post">
+			<h2>Add format</h2>
+			<div class="form-group row py-4">
+				<label for="nameInput" class="col-sm-2 col-form-label">Format: </label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{name}" class="form-control" id="nameInput"/>
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+				</div>
+			</div>
+	    	<div>
+				<input class="btn btn-outline-success" type="submit" value="Save" name="save"/>
+				<a href="/attributes"><button class="btn btn-outline-danger" type="button">Cancel</button></a>
+	    	</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<title>attribute list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body class="d-flex justify-content-center">
+	<div class="col-md-8 p-4">
+		<h2 class="pb-4">Manage attributes</h2>
+		<div class="row pb-4">
+			<div class="col">
+				<h3>Genres</h3>
+				<table class="table">
+					<tr th:each="genre: ${genres}">
+						<td th:text="${genre.name}"></td>
+						<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editgenre/{id}(id=${genre.genre_id})}">edit</a></td>
+					</tr>
+				</table>
+				<tr sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-outline-success mx-2" href="/addgenre">Add genre</a></tr>
+			</div>
+			<div class="col">
+				<h3>Formats</h3>
+				<table class="table">
+					<tr th:each="format: ${formats}">
+						<td th:text="${format.name}"></td>
+						<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editformat/{id}(id=${format.format_id})}">edit</a></td>				</tr>
+				</table>
+				<tr sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-outline-success mr-2" href="/addformat">Add format</a></tr>
+			</div>
+			<div class="col">
+				<h3>Statuses</h3>
+				<table class="table">
+					<tr th:each="status: ${statuses}">
+						<td th:text="${status.name}"></td>
+					</tr>
+				</table>
+				<tr sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-outline-success mr-2" href="/addstatus">Add status</a></tr>
+			</div>
+		</div>
+		<a class="btn btn-outline-primary mr-2" href="/MyReads">Go back</a>
+	</div>
+</body>
+</html>

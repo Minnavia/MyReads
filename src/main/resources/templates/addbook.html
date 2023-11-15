@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Book</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="row d-flex justify-content-center">
+		<form class="pt-4 col-md-4 col-sm-8" action="#" th:action="@{/savebook}" th:object="${book}" method="post">
+			<h2>Add Book</h2>
+			<div style="clear: both; display: block; height: 20px;"></div>
+			<div class="form-group row">
+				<label for="titleInput" class="col-sm-2 col-form-label">Title: </label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{title}" class="form-control" id="titleInput"/>
+					<p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</p>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="authorInput" class="col-sm-2 col-form-label">Author: </label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{author}" class="form-control" id="authorInput"/>	
+					<p th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author Error</p>		
+				</div>
+			</div>
+			<div class="form-group row">
+		    	<label for="formatlist" class="col-sm-2 col-form-label">Format: </label>
+		    	<div class="col-sm-10">
+			    	<select id="formatlist" th:field="*{format}" class="form-control">
+			    		<option th:each="format: ${formats}" th:value="${format.format_id}" th:text="${format.name}"></option>
+			    	</select>
+		    	</div>
+			</div>
+			<div class="form-group row">
+		    	<label for="statuslist" class="col-sm-2 col-form-label">Status: </label>
+				<div class="col-sm-10">
+			    	<select if="statuslist" th:field="*{status}" class="form-control">
+			    		<option th:each="status: ${statuses}" th:value="${status.status_id}" th:text="${status.name}"></option>
+			    	</select>
+				</div>
+			</div>
+	 		<div class="form-group row" id="genrelist" align="left">
+				<div class="col-sm-2">Genre: </div>
+				<div class="col-sm-10">
+					<div class="form-check">
+				    	<th:block id="genrelist" th:each="genre: ${genres}">
+							<div>
+								<input class="form-check-input" type="checkbox" th:field="*{genres}" th:text="${genre.name}" th:value="${genre.genre_id}">
+							</div>
+						</th:block>
+					</div>
+				</div>
+	    	</div>
+	    	<div th:switch="${hasRead}">
+				<div th:case="true">
+			    	<div class="form-group row">
+						<label for="reviewInput" class="col-sm-2 col-form-label">Review: </label>
+						<div class="col-sm-10">
+			    			<input id="reviewInput" class="form-control" type="text" th:field="*{review.review}" />
+						</div>
+			    	</div>
+			    	<fieldset class="form-group">
+				    	<div class="row" id="ratingInput">
+							<legend class="col-form-label col-sm-2 pt-0">Rating: </legend>
+							<div class="col-sm-10">
+					            <div class="form-check form-check-inline">
+					                <input type="radio" id="rating1" name="rating1" class="form-check-input" value="1" th:field="*{review.rating}">
+					                <label class="form-check-label" for="rating1">1</label>
+					            </div>
+					            <div class="form-check form-check-inline">
+					                <input type="radio" id="rating2" name="rating2" class="form-check-input" value="2" th:field="*{review.rating}">
+					                <label class="form-check-label" for="rating2">2</label>
+					            </div>
+					            <div class="form-check form-check-inline">
+					                <input type="radio" id="rating3" name="rating3" class="form-check-input" value="3" th:field="*{review.rating}">
+					                <label class="form-check-label" for="rating3">3</label>
+					            </div>
+					            <div class="form-check form-check-inline">
+					                <input type="radio" id="rating4" name="rating4" class="form-check-input" value="4" th:field="*{review.rating}">
+					                <label class="form-check-label" for="rating4">4</label>
+					            </div>
+					            <div class="form-check form-check-inline">
+					                <input type="radio" id="rating5" name="rating5" class="form-check-input" value="5" th:field="*{review.rating}">
+					                <label class="form-check-label" for="rating5">5</label>
+					            </div>
+							</div>
+				    	</div>
+			    	</fieldset>
+				</div>
+				<div th:case="false">
+					<p class="lead" th:text="${message}"/>
+				</div>
+			</div>
+	    	<input th:unless="${hasRead} == true" class="btn btn-outline-primary" type="submit" value="Give a review" name="givereview"/>
+	    	<div style="clear: both; display: block; height: 20px;"></div>
+	    	<div>
+				<input class="btn btn-outline-success" type="submit" value="Save" name="save"/>
+				<a href="/MyReads"><button class="btn btn-outline-danger" type="button">Cancel</button></a>
+	    	</div>
+		</form>
+	</div>
+</body>
+</html>

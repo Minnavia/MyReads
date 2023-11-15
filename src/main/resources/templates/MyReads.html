@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>MyReads</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="row d-flex justify-content-center">
+		<div class="col-lg-9">
+			<h2 class="py-2 text-center">My reading</h2>
+			<h3 class="pl-2">Currently reading</h3>
+			<table class="table table-striped">
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Format</th>
+					<th>Genres</th>
+					<th sec:authorize="hasAuthority('ADMIN')"></th>
+					<th sec:authorize="hasAuthority('ADMIN')"></th>
+				</tr>
+		
+				<tr th:each="book : ${cr_books}">
+					<td class="col-sm-3" th:text="${book.title}">title</td>
+					<td class="col-sm-2" th:text="${book.author}">author</td>
+					<td class="col-sm-1" th:text="${book.format.name}">format</td>
+					<td class="col-sm-2" th:text="${book.genres}">genres</td>
+					<td class="col-sm-1" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editbook/{id}(id=${book.book_id})}" class="btn btn-outline-primary btn-sm">Edit</a></td>
+					<td class="col-sm-1" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deletebook/{id}(id=${book.book_id})}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+				</tr>
+			</table>
+			
+			<h3 class="pl-2">Want to read</h3>
+			<table class="table table-striped">
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Format</th>
+					<th>Genres</th>
+					<th sec:authorize="hasAuthority('ADMIN')"></th>
+					<th sec:authorize="hasAuthority('ADMIN')"></th>
+				</tr>
+		
+				<tr th:each="book : ${wtr_books}">
+					<td class="col-sm-3" th:text="${book.title}">title</td>
+					<td class="col-sm-2" th:text="${book.author}">author</td>
+					<td class="col-sm-1" th:text="${book.format.name}">format</td>
+					<td class="col-sm-2" th:text="${book.genres}">genres</td>
+					<td class="col-sm-1" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editbook/{id}(id=${book.book_id})}" class="btn btn-outline-primary btn-sm">Edit</a></td>
+					<td class="col-sm-1" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deletebook/{id}(id=${book.book_id})}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+				</tr>
+			</table>
+			
+			<h3 class="pl-2">Read</h3>
+			<table class="table table-striped">
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>Format</th>
+					<th>Genres</th>
+					<th>Review</th>
+					<th>Rating</th>
+					<th sec:authorize="hasAuthority('ADMIN')"></th>
+					<th sec:authorize="hasAuthority('ADMIN')"></th>
+				</tr>
+		
+				<tr th:each="book : ${read_books}">
+					<td class="col-sm-3" th:text="${book.title}">title</td>
+					<td class="col-sm-2" th:text="${book.author}">author</td>
+					<td class="col-sm-1" th:text="${book.format.name}">format</td>
+					<td class="col-sm-2" th:text="${book.genres}">genres</td>
+					<td class="col-sm-3" th:text="${book.review?.review}">review</td>
+					<td class="col-sm-1" th:text="${book.review?.rating}">rating</td>
+					<td class="col-sm-1" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/editbook/{id}(id=${book.book_id})}" class="btn btn-outline-primary btn-sm">Edit</a></td>
+					<td class="col-sm-1" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/deletebook/{id}(id=${book.book_id})}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+				</tr>
+			</table>
+			<div class="pl-4 pb-3 row">
+				<a href="/addbook" sec:authorize="hasAuthority('ADMIN')" class="btn btn-success mx-2">Add Book</a>
+				<a type="button" class="btn btn-primary mr-2" href="/attributes" sec:authorize="hasAuthority('ADMIN')">Manage attributes</a>
+				<form th:action="@{/logout}" method="post">
+			        <input class="btn btn-outline-primary mr-2" type="submit" value="Sign Out"/>
+			    </form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
