@@ -134,8 +134,8 @@ public class MyReadsApplication {
 			}
 			
 			log.info("save users");
-			User user1 = new User("user", "$2a$10$8FAx5AX8G3q4cK/r/H.ALeXvibbkZeF9lD/j4QXCnZg.TB8CRwPwO", "USER");
-			User user2 = new User("admin", "$2a$10$hQOuSJW9b3s.W5BCrmRtsOEVk8W6DryBFwqm7RaoiIXYPeggyNGEy", "ADMIN");
+			User user1 = new User("jane", "$2a$10$470uj/f9yMWG46Yn04KBkOf..3.3Qe2M4/EIlmMi3Y6ADKraRMlDG", "USER");
+			User user2 = new User("virginia", "$2a$10$NR59maDiHFSAEtBHkOP0dOdmig022bQJTscqtbgSsNeVZ6LiywUS6", "ADMIN");
 			userRepository.save(user1);
 			userRepository.save(user2);
 		};
